@@ -1,1 +1,1 @@
-web: go build . && cloud_project
+web: go run .
