@@ -7,11 +7,9 @@
  <title>Demo możliwości Neo4J i języka Cypher</title>
 </head>
 <script src="home/script.js"></script>
- <!-- <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis-without-dependencies.js"></script> -->
 <script src="https://rawgit.com/neo4j-contrib/neovis.js/master/dist/neovis.js"></script> 
-<!-- <script src="https://cdn.neo4jlabs.com/neovis.js/v1.2.1/neovis.js"></script>  -->
 <script type="text/javascript">
-        //response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+
         function _displayGraph() {
             document.getElementById('result').innerHTML = ''; 
             document.getElementById('dataForm').innerHTML = '';  
@@ -29,7 +27,7 @@
         function draw() {
             var config = {
                 container_id: "viz",
-                server_url: "https://hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/",
+                server_url: "https://localhost:7474",
                 server_user: "caro",
                 server_password: "b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl",
                 labels: {
@@ -55,47 +53,8 @@
             viz.render();
         }
 
-        function _userGraph() {
-            document.getElementById('result').innerHTML = ''; 
-            document.getElementById('dataForm').innerHTML = '';  
-            document.getElementById('diagram').style.display = "none";
-            var form1 = "<div id=\"viz\" style=\"float: center; width: 1500\">"
-           
-            document.getElementById('dataForm').innerHTML = form1;
-            document.getElementById('result').innerHTML = ''; 
-            document.getElementById('subHeader').innerHTML = "";
-            draw()
-        }
-
-        function userdraw(pesel) {
-            var config = {
-                container_id: "viz",
-                server_url: "bolt://localhost:7687",
-                server_user: "neo4j",
-                server_password: "caro",
-                labels: {
-                    "User": {
-                        "caption": "name",
-                    }
-                },
-                relationships: {
-                  "BORROW": {
-                        "thickness": 3,
-                        caption: false
-                    },
-                },
-                initial_cypher: "START n=node(*) MATCH (n:User{pesel:)-[r]->(m) " +
-                    "OPTIONAL MATCH  (omn)\n WHERE NOT (omn)--()" +
-                    "RETURN n,r,m, omn;"
-
-                   // MATCH (user:User {pesel: {pesel}}) MATCH (book:Book {uniquecode: {uniquecode}}) CREATE (user)-[rel:BORROWED]->(book)
-            };
-
-            viz = new NeoVis.default(config);
-            viz.render();
-        }
 </script>
- <body> <!--<body> onload="draw();"> -->
+ <body> 
     <header>
       <nav>
         <ul>
@@ -119,5 +78,4 @@
     <footer>
       <p>Przetwarzanie danych w chmurach obliczeniowych - Karolina Mizera</p>
     </footer>
-    <!-- </body></body>> -->
 </html>

@@ -146,6 +146,16 @@ function _getUser_GET(form){
     request.onreadystatechange = function() {
     if (request.readyState == 4 && request.status == 200 ) {
         document.getElementById('result').innerHTML = request.response;
+        objJSON = JSON.parse(request.response);
+        var txt = "<table><tr><td>Name</td><td>Subname</td><td>Pesel</td><td>Status</td></tr>";;
+            for ( var id in objJSON )  {
+                txt += "<tr><td>" + id + "</td>" + "<td>"+objJSON[id]["miejsce"]+"</td>";
+                txt += "<td>"+objJSON[id]["name"]+"</td>" + "<td>"+objJSON[id]["subname"]+"</td>";
+                txt += "<td>"+objJSON[id]["pesel"]+"</td>" + "<td>"+objJSON[id]["age"]+"</td>";
+                txt +="</tr>";
+            }
+            document.getElementById('result').innerHTML = txt;
+            document.getElementById('subHeader').innerHTML = "Zawartość bazy danych";
         }
     }
     request.open("GET", "https://mizera-cloud-project.herokuapp.com/user", true);
@@ -179,8 +189,7 @@ function _getBook_GET(form){
     request.onreadystatechange = function() {
     if (request.readyState == 4 && request.status == 200 )    {
         objJSON = JSON.parse(request.response);
-        document.getElementById('result').innerHTML = request.response;
-        userDraw(objJSON[0]["pesel"]);
+        
     }
     }
 
