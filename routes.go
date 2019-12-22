@@ -61,8 +61,10 @@ func GetUser(w http.ResponseWriter, r *http.Request){
 		Parameters: neoism.Props{"pesel": user.Pesel },
 		Result:     &result,
 	}
-	for res in result:
-		log.Println(res.name);
+	// for res := result{
+	// 	log.Println(res.name)
+	// }
+
 	err = Db.Cypher(&cq)
 	PanicErr(w, err)
 
