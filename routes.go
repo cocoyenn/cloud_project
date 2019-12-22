@@ -41,7 +41,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	err := Db.Cypher(&cq)
 	PanicErr(w, err)
 	
-	RespondWithJSON(w, http.StatusCreated, users)
+	RespondWithJSON(w, http.StatusOK, users)
 }
 
 func GetUser(w http.ResponseWriter, r *http.Request){
@@ -65,7 +65,7 @@ func GetUser(w http.ResponseWriter, r *http.Request){
 	err = Db.Cypher(&cq)
 	PanicErr(w, err)
 
-	RespondWithJSON(w, http.StatusCreated, result)
+	RespondWithJSON(w, http.StatusOK, result)
 }
 
 func AddBook(w http.ResponseWriter, r *http.Request){
@@ -101,7 +101,7 @@ func GetBooks(w http.ResponseWriter, r *http.Request){
 	err := Db.Cypher(&cq)
 	PanicErr(w, err)
 	
-	RespondWithJSON(w, http.StatusCreated, books)
+	RespondWithJSON(w, http.StatusOK, books)
 }
 
 func GetBook(w http.ResponseWriter, r *http.Request){
@@ -125,7 +125,7 @@ func GetBook(w http.ResponseWriter, r *http.Request){
 	err = Db.Cypher(&cq)
 	PanicErr(w, err)
 	
-	RespondWithJSON(w, http.StatusCreated, books)
+	RespondWithJSON(w, http.StatusOK, books)
 }
 
 
