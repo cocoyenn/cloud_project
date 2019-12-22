@@ -48,7 +48,7 @@ function _addUser_POST(form){
         }
         }
 
-        request.open("POST", "https://mizera-cloud-project.herokuapp.com:" + port + "/user", true);
+        request.open("POST", "https://mizera-cloud-project.herokuapp.com/user", true);
         request.send(msg);
     }
 }
@@ -101,7 +101,7 @@ function _addBook_POST(form){
         }
         }
 
-        request.open("POST", "https://mizera-cloud-project.herokuapp.com:" + port + "/book", true);
+        request.open("POST", "https://mizera-cloud-project.herokuapp.com/book", true);
         request.send(msg);
     }
 }
@@ -148,7 +148,7 @@ function _getUser_GET(form){
         document.getElementById('result').innerHTML = request.response;
         }
     }
-    request.open("GET", "https://mizera-cloud-project.herokuapp.com:" + port + "/user", true);
+    request.open("GET", "https://mizera-cloud-project.herokuapp.com/user", true);
     request.send(msg);
 }
 }
@@ -184,7 +184,7 @@ function _getBook_GET(form){
     }
     }
 
-    request.open("GET", "https://mizera-cloud-project.herokuapp.com:" + port + "book", true);
+    request.open("GET", "https://mizera-cloud-project.herokuapp.com/book", true);
     request.send(msg);
 }
 }
@@ -222,7 +222,7 @@ function _lendBook_POST(form){
     }
     }
 
-    request.open("POST", "https://mizera-cloud-project.herokuapp.com:" + port + "/lend", true);
+    request.open("POST", "https://mizera-cloud-project.herokuapp.com/lend", true);
     request.send(msg);
 }
 }
@@ -259,7 +259,7 @@ function _giveBackBook_POST(form){
         }
     }
 
-    request.open("POST", "https://mizera-cloud-project.herokuapp.com:" + port + "/giveBack", true);
+    request.open("POST", "https://mizera-cloud-project.herokuapp.com/giveBack", true);
     request.send(msg);
     }
 }
