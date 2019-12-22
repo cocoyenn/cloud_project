@@ -1,8 +1,10 @@
 body {
     background-color: lightgray;
     /* background-image: url("sources/atom.png"); */
-    margin-left: 150px;
-    margin-right: 150px;
+    margin-left: 25px;
+    margin-right: 25px;
+    position: relative;
+    
 }
 header{
     background-color: tan;
@@ -12,7 +14,7 @@ header{
     height: 25px;
     padding: 16px;
     color: black;
-    /* position: fixed; */
+    position: relative;
 }
 header span:hover{
     color: #f1f1f1;

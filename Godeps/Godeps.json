@@ -1,0 +1,59 @@
+{
+	"ImportPath": "cloud_project",
+	"GoVersion": "go1.13",
+	"GodepVersion": "v80",
+	"Packages": [
+		"./..."
+	],
+	"Deps": [
+		{
+			"ImportPath": "github.com/davecgh/go-spew/spew",
+			"Comment": "v1.1.1-1-gd8f796a",
+			"Rev": "d8f796af33cc11cb798c1aaeb27a4ebc5099927d"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.7.3-15-g49c0148",
+			"Rev": "49c01487a141b49f8ffe06277f3dca3ee80a55fa"
+		},
+		{
+			"ImportPath": "github.com/jmcvetta/neoism",
+			"Comment": "v1.3.1-12-g2ffb5c6",
+			"Rev": "2ffb5c69feb355227c6ee8679768d7289e6d7193"
+		},
+		{
+			"ImportPath": "github.com/jmcvetta/randutil",
+			"Rev": "2bb1b664bcff821e02b2a0644cd29c7e824d54f8"
+		},
+		{
+			"ImportPath": "github.com/kr/pretty",
+			"Comment": "v0.1.0-2-g71e7e49",
+			"Rev": "71e7e49937503c662b9b636fd6b2c14b1aa818a5"
+		},
+		{
+			"ImportPath": "github.com/kr/text",
+			"Comment": "v0.1.0",
+			"Rev": "e2ffdb16a802fe2bb95e2e35ff34f0e53aeef34f"
+		},
+		{
+			"ImportPath": "github.com/pmezard/go-difflib/difflib",
+			"Comment": "v1.0.0-4-g5d4384e",
+			"Rev": "5d4384ee4fb2527b0a1256a821ebfc92f91efefc"
+		},
+		{
+			"ImportPath": "github.com/stretchr/testify/assert",
+			"Comment": "v1.4.0-36-g41d0ae8",
+			"Rev": "41d0ae8564c694926432378eec30c1d35e926fb6"
+		},
+		{
+			"ImportPath": "gopkg.in/jmcvetta/napping.v3",
+			"Comment": "v3.2.0",
+			"Rev": "4c7b4b235c63152afa9a1c6384e708e0fbfd77ca"
+		},
+		{
+			"ImportPath": "gopkg.in/yaml.v2",
+			"Comment": "v2.2.7",
+			"Rev": "1f64d6156d11335c3f22d9330b0ad14fc1e789ce"
+		}
+	]
+}
