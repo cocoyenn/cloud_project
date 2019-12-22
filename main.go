@@ -1,15 +1,26 @@
 package main
 
 import (
+	"os"
 	"log"
 	"net/http"
 	"github.com/gorilla/mux"
 	"github.com/jmcvetta/neoism"
 )
 
+func GetPort() string {
+	var port = os.Getenv("PORT")
+	// Set a default port if there is nothing in the environment
+	if port == "" {
+ 		port = "8080"
+ 		log.Println("INFO: No PORT environment variable detected, defaulting to " + port)
+ 	}
+ 	return ":" + port
+ }
+
 func InitRouter() *mux.Router{
 	router := mux.NewRouter().StrictSlash(true)
-	router.HandleFunc("/", addCookie)
+	//router.HandleFunc("/", addCookie)
 	router.PathPrefix("/home").Handler(http.StripPrefix("/home", http.FileServer(http.Dir("./static"))))
 	router.HandleFunc("/user", AddUser).Methods("POST")
 	router.HandleFunc("/user", GetUser).Methods("GET")
@@ -45,8 +56,8 @@ var Db *neoism.Database
 func main(){
 	var err error = nil
 
-	//var databasePath string = "http://neo4j:caro@localhost:7474"
-	var databasePath string = "https://caro:b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
+	var databasePath string = "http://neo4j:caro@localhost:7474"
+	//var databasePath string = "https://caro:b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
 	
 	log.Print("Begining of initialization of server...\n")
 
@@ -57,6 +68,7 @@ func main(){
 	}
 
 	router := InitRouter()
-	log.Println("Initialization end with succes: Server ready.")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	port := GetPort()
+	log.Println("Initialization end with succes: Server ready." + port)
+	log.Fatal(http.ListenAndServe(port, router))
 }
