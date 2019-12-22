@@ -150,8 +150,8 @@ function _getUser_GET(form){
         var txt = "<table><tr><td>Name</td><td>Subname</td><td>Pesel</td><td>Status</td></tr>";;
             for ( var id in objJSON )  {
                 txt += "<tr><td>" + id + "</td>" + "<td>"+objJSON[id]["miejsce"]+"</td>";
-                txt += "<td>"+objJSON[id]["name"]+"</td>" + "<td>"+objJSON[id]["subname"]+"</td>";
-                txt += "<td>"+objJSON[id]["pesel"]+"</td>" + "<td>"+objJSON[id]["age"]+"</td>";
+                txt += "<td>"+objJSON[id]["Name"]+"</td>" + "<td>"+objJSON[id]["Subname"]+"</td>";
+                txt += "<td>"+objJSON[id]["Pesel"]+"</td>" + "<td>"+objJSON[id]["Age"]+"</td>";
                 txt +="</tr>";
             }
             document.getElementById('result').innerHTML = txt;
