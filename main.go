@@ -9,6 +9,7 @@ import (
 
 func InitRouter() *mux.Router{
 	router := mux.NewRouter().StrictSlash(true)
+	router.HandleFunc("/", addCookie)
 	router.PathPrefix("/home").Handler(http.StripPrefix("/home", http.FileServer(http.Dir("./static"))))
 	router.HandleFunc("/user", AddUser).Methods("POST")
 	router.HandleFunc("/user", GetUser).Methods("GET")
@@ -24,6 +25,20 @@ func InitRouter() *mux.Router{
 	
 	return router
 }
+
+func addCookie(w http.ResponseWriter, r *http.Request) {
+    cookie := http.Cookie{
+        Name:    "SameSite",
+        Value:  "none",
+	}
+	cookie2 := http.Cookie{
+        Name:    "SameSite",
+        Value:  "Secure",
+    }
+	http.SetCookie(w, &cookie)
+	http.SetCookie(w, &cookie2)
+}
+
 
 var Db *neoism.Database
 
