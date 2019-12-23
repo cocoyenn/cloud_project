@@ -35,21 +35,7 @@ func AddUser(w http.ResponseWriter, r *http.Request) {
 	RespondWithJSON(w, http.StatusCreated, user)
 }
 
-func GetUsers(w http.ResponseWriter, r *http.Request) {
-	var users []User
-
-	cq := neoism.CypherQuery{
-		Statement: "MATCH (user:User) RETURN user.name AS Name, user.surname AS Surname, user.age As Age, user.country as Country;" ,
-		Result:    &users ,
-	}
-
-	err := Db.Cypher(&cq)
-	PanicErr(w, err)
-	
-	RespondWithJSON(w, http.StatusOK, users)
-}
-
-func GetUser(w http.ResponseWriter, r *http.Request){
+func GetUser(w http.ResponseWriter, r *http.Request) {
 	var result []UniqueCodeHelper
 	userPesel, _ := mux.Vars(r)["pesel"]
 
@@ -80,7 +66,32 @@ func GetUser(w http.ResponseWriter, r *http.Request){
 	RespondWithJSON(w, http.StatusOK, result)
 }
 
-func AddBook(w http.ResponseWriter, r *http.Request){
+func DeleteUser(w http.ResponseWriter, r *http.Request) {
+	var user User
+	var result []User
+
+	userPesel, _ := mux.Vars(r)["pesel"]
+
+	cq := neoism.CypherQuery{
+		Statement: "MATCH (user:User{pesel: {pesel}}) OPTIONAL MATCH (user)-[r:RETURNED]-() DELETE user, r",
+		Parameters: neoism.Props{"pesel": userPesel },
+		Result:     &result,
+	}
+
+	err := Db.Cypher(&cq)
+	if(err != nil){
+		var msg Message 
+		msg.MSG = err.Error()
+		RespondWithJSON(w, http.StatusForbidden, msg)
+		log.Println(err)
+	} else {
+		RespondWithJSON(w, http.StatusNoContent, user)
+	}
+	
+
+}
+
+func AddBook(w http.ResponseWriter, r *http.Request ){
 	var book Book
 	res0 := []struct { N neoism.Node }{}
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -106,21 +117,7 @@ func AddBook(w http.ResponseWriter, r *http.Request){
 	RespondWithJSON(w, http.StatusCreated, book)
 }
 
-func GetBooks(w http.ResponseWriter, r *http.Request){
-	var books []Book
-
-	cq := neoism.CypherQuery{
-		Statement: "MATCH (book:Book) RETURN book.title AS Title, book.type AS Type, book.uniquecode As UniqueCode ;" ,
-		Result:    &books ,
-	}
-
-	err := Db.Cypher(&cq)
-	PanicErr(w, err)
-	
-	RespondWithJSON(w, http.StatusOK, books)
-}
-
-func GetBook(w http.ResponseWriter, r *http.Request){
+func GetBook(w http.ResponseWriter, r *http.Request) {
 	var books  []UserBookHealper
 	UniqueCode, _ := mux.Vars(r)["uniquecode"]
 	res0 := []struct { N neoism.Node }{}
@@ -148,33 +145,7 @@ func GetBook(w http.ResponseWriter, r *http.Request){
 	RespondWithJSON(w, http.StatusOK, books)
 }
 
-
-func DeleteUser(w http.ResponseWriter, r *http.Request){
-	var user User
-	var result []User
-
-	userPesel, _ := mux.Vars(r)["pesel"]
-
-	cq := neoism.CypherQuery{
-		Statement: "MATCH (user:User{pesel: {pesel}}) OPTIONAL MATCH (user)-[r:RETURNED]-() DELETE user, r",
-		Parameters: neoism.Props{"pesel": userPesel },
-		Result:     &result,
-	}
-
-	err := Db.Cypher(&cq)
-	if(err != nil){
-		var msg Message 
-		msg.MSG = err.Error()
-		RespondWithJSON(w, http.StatusForbidden, msg)
-		log.Println(err)
-	} else {
-		RespondWithJSON(w, http.StatusNoContent, user)
-	}
-	
-
-}
-
-func Lend(w http.ResponseWriter, r *http.Request){
+func Lend(w http.ResponseWriter, r *http.Request) {
 	var lendHelper LendHelper
 	res0 := []struct { N neoism.Node }{}
 	reqBody, err := ioutil.ReadAll(r.Body)
@@ -201,7 +172,7 @@ func Lend(w http.ResponseWriter, r *http.Request){
 	RespondWithJSON(w, http.StatusCreated, nil)
 }
 
-func Archivise(w http.ResponseWriter, r *http.Request){
+func Archivise(w http.ResponseWriter, r *http.Request) {
 	var lendHelper LendHelper
 	res0 := []struct { N neoism.Node }{}
 	reqBody, err := ioutil.ReadAll(r.Body)

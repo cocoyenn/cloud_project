@@ -38,6 +38,3 @@ type UniqueCodeHelper struct {
 type Message struct {
 	MSG		string `json:"Msg"`
 }
-
-// CREATE CONSTRAINT ON (n:Person)
-// ASSERT n.name IS UNIQUE
