@@ -23,12 +23,12 @@ func InitRouter() *mux.Router{
 	//router.HandleFunc("/", addCookie)
 	router.PathPrefix("/home").Handler(http.StripPrefix("/home", http.FileServer(http.Dir("./static"))))
 	router.HandleFunc("/user", AddUser).Methods("POST")
-	router.HandleFunc("/user", GetUser).Methods("GET")
+	router.HandleFunc("/user/{pesel}", GetUser).Methods("GET")
 	router.HandleFunc("/users", GetUsers).Methods("GET")
-	router.HandleFunc("/delete", DeleteUser).Methods("DELETE")
+	router.HandleFunc("/user/{pesel}", DeleteUser).Methods("DELETE")
 
 	router.HandleFunc("/book", AddBook).Methods("POST")
-	router.HandleFunc("/book", GetBook).Methods("GET")
+	router.HandleFunc("/book/{uniquecode}", GetBook).Methods("GET")
 	router.HandleFunc("/books", GetBooks).Methods("GET")
 
 	router.HandleFunc("/lend", Lend).Methods("POST")
@@ -56,8 +56,8 @@ var Db *neoism.Database
 func main(){
 	var err error = nil
 
-	//var databasePath string = "http://neo4j:caro@localhost:7474"
-	var databasePath string = "https://caro:b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
+	var databasePath string = "http://neo4j:caro@localhost:7474"
+	//var databasePath string = "https://caro:b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
 	
 	log.Print("Begining of initialization of server...\n")
 

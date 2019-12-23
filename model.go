@@ -20,6 +20,24 @@ type LendHelper struct {
 	UniqueCode 	string `json:"UniqueCode"`
 }
 
+type UserBookHealper struct {
+		Name       	string `json:"Name"`
+		Surname 	string `json:"Surname"`
+		Pesel		string `json:"Pesel"`
+		State	 	string `json:"State"`
+	
+}
+
+type UniqueCodeHelper struct {
+	Title		string `json:"Title"`
+	Type		string `json:"Type"`
+	UniqueCode 	string `json:"UniqueCode"`
+	State	 	string `json:"State"`
+}
+
+type Message struct {
+	MSG		string `json:"Msg"`
+}
 
 // CREATE CONSTRAINT ON (n:Person)
 // ASSERT n.name IS UNIQUE

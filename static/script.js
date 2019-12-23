@@ -1,3 +1,5 @@
+var serverPath = "https://hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"// "http://localhost:8080";
+
 function getRequestObject() {
     if ( window.ActiveXObject) {
       return (new ActiveXObject("Microsoft.XMLHTTP"));
@@ -7,8 +9,6 @@ function getRequestObject() {
       return (null);
     }
 }
-
-var port = process.env.PORT;
 
 function _addUser() {
     document.getElementById('result').innerHTML = ''; 
@@ -42,13 +42,12 @@ function _addUser_POST(form){
         request = getRequestObject() ;
 
         request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200 )    {
-            request.response.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-            document.getElementById('result').innerHTML = request.response;
-        }
+        if (request.readyState == 4 && request.status == 201 )    {
+            document.getElementById('subHeader').innerHTML = "Successfuly added user: " + data.pesel;
+            }
         }
 
-        request.open("POST", "https://mizera-cloud-project.herokuapp.com/user", true);
+        request.open("POST", serverPath + "/user", true);
         request.send(msg);
     }
 }
@@ -96,12 +95,12 @@ function _addBook_POST(form){
         request = getRequestObject() ;
 
         request.onreadystatechange = function() {
-        if (request.readyState == 4 && request.status == 200 )    {
-            document.getElementById('result').innerHTML = request.response;
+        if (request.readyState == 4 && request.status == 201 )    {
+            document.getElementById('subHeader').innerHTML = "Successfuly added book: " + data.uniquecode;
         }
         }
 
-        request.open("POST", "https://mizera-cloud-project.herokuapp.com/book", true);
+        request.open("POST", serverPath + "/book", true);
         request.send(msg);
     }
 }
@@ -135,31 +134,29 @@ function __userHistory(){
 
 function _getUser_GET(form){
     
-    if (form.pesel.value != false) {
+    if (form.pesel.value != "") {
     var data = {};
-    data.pesel = form.pesel.value;
-    msg = JSON.stringify(data);
+    data.Pesel = form.pesel.value;
     document.getElementById('result').innerHTML = ''; 
     document.getElementById('dataForm').innerHTML = '';  
     request = getRequestObject() ;
-    
     request.onreadystatechange = function() {
     if (request.readyState == 4 && request.status == 200 ) {
-        document.getElementById('result').innerHTML = request.response;
         objJSON = JSON.parse(request.response);
-        var txt = "<table><tr><td>Name</td><td>Subname</td><td>Pesel</td><td>Status</td></tr>";;
+        var txt = "<table><tr><td>Title</td><td>Type</td><td>UniqueCode</td><td>Status</td></tr>";;
             for ( var id in objJSON )  {
-                txt += "<tr><td>" + id + "</td>" + "<td>"+objJSON[id]["miejsce"]+"</td>";
-                txt += "<td>"+objJSON[id]["Name"]+"</td>" + "<td>"+objJSON[id]["Subname"]+"</td>";
-                txt += "<td>"+objJSON[id]["Pesel"]+"</td>" + "<td>"+objJSON[id]["Age"]+"</td>";
+                txt += "<tr><td>"+objJSON[id]["Title"]+"</td>" + "<td>"+objJSON[id]["Type"]+"</td>";
+                txt += "<td>"+objJSON[id]["UniqueCode"]+"</td>" + "<td>"+objJSON[id]["State"]+"</td>";
                 txt +="</tr>";
             }
-            document.getElementById('result').innerHTML = txt;
-            document.getElementById('subHeader').innerHTML = "Zawartość bazy danych";
+            document.getElementById('result').innerHTML = txt + "</table>";
+            document.getElementById('subHeader').innerHTML = "Account history: user " + data.Pesel;
+        } else {
+            document.getElementById('subHeader').innerHTML = "Account for user " + data.Pesel + " doesn't exist.";
         }
     }
-    request.open("GET", "https://mizera-cloud-project.herokuapp.com/user", true);
-    request.send(msg);
+    request.open("GET", serverPath + "/user/" + data.Pesel , true) ;
+    request.send(null);
 }
 }
 
@@ -181,20 +178,29 @@ function _getBook_GET(form){
     if (form.uniquecode.value != "") {
     var data = {};
     data.uniquecode = form.uniquecode.value;
-    msg = JSON.stringify(data);
+   
     document.getElementById('result').innerHTML = ''; 
     document.getElementById('dataForm').innerHTML = '';  
     request = getRequestObject() ;
 
     request.onreadystatechange = function() {
-    if (request.readyState == 4 && request.status == 200 )    {
-        objJSON = JSON.parse(request.response);
-        
-    }
+        if (request.readyState == 4 && request.status == 200 ) {
+            objJSON = JSON.parse(request.response);
+            var txt = "<table><tr><td>Name</td><td>Surname</td><td>Pesel</td><td>Status</td></tr>";;
+                for ( var id in objJSON )  {
+                    txt += "<tr><td>"+objJSON[id]["Name"]+"</td>" + "<td>"+objJSON[id]["Surname"]+"</td>";
+                    txt += "<td>"+objJSON[id]["Pesel"]+"</td>" + "<td>"+objJSON[id]["State"]+"</td>";
+                    txt +="</tr>";
+                }
+                document.getElementById('result').innerHTML = txt + "</table>";
+                document.getElementById('subHeader').innerHTML = "Account history: book " + data.uniquecode;
+        } else {
+                document.getElementById('subHeader').innerHTML = "Account for book " + data.uniquecode + " doesn't exist.";
+        }
     }
 
-    request.open("GET", "https://mizera-cloud-project.herokuapp.com/book", true);
-    request.send(msg);
+    request.open("GET", serverPath + "/book/"+ data.uniquecode , true);
+    request.send(null);
 }
 }
 
@@ -225,13 +231,12 @@ function _lendBook_POST(form){
     request = getRequestObject() ;
 
     request.onreadystatechange = function() {
-    if (request.readyState == 4 && request.status == 200 )    {
-        objJSON = JSON.parse(request.response);
-        document.getElementById('result').innerHTML = "done";//request.response;
+    if (request.readyState == 4 && request.status == 201 ) {
+        alert("Success.")
     }
     }
 
-    request.open("POST", "https://mizera-cloud-project.herokuapp.com/lend", true);
+    request.open("POST", serverPath + "/lend", true);
     request.send(msg);
 }
 }
@@ -262,13 +267,50 @@ function _giveBackBook_POST(form){
     request = getRequestObject() ;
 
     request.onreadystatechange = function() {
-    if (request.readyState == 4 && request.status == 200 )    {
+    if (request.readyState == 4 && request.status == 201 )    {
         objJSON = JSON.parse(request.response);
-        document.getElementById('result').innerHTML = "done";//request.response;
+        alert("Success.")
+        document.getElementById('result').innerHTML = "Succesfully returned a book: " + data.uniquecode + "by user: " + data.pesel ;//request.response;
         }
     }
 
-    request.open("POST", "https://mizera-cloud-project.herokuapp.com/giveBack", true);
+    request.open("POST", serverPath + "/giveBack", true);
     request.send(msg);
     }
+}
+
+
+function _deleteUser(){
+    document.getElementById('result').innerHTML = ''; 
+    document.getElementById('dataForm').innerHTML = '';  
+    document.getElementById('diagram').style.display = "none";
+    var form1 = "<form name='add'><table>" ;
+    form1    += "<tr><td>Pesel</td><td><input type='text' id='pesel' name='pesel' value='' ></input></td></tr>";  
+    form1    += "<tr><td></td><td><input type='button' id='addButton' value='Delete user' onclick='_deleteUser_DELETE(this.form)' ></input></td></tr>";
+    form1    += "</table></form>";
+    document.getElementById('dataForm').innerHTML = form1;
+    document.getElementById('result').innerHTML = ''; 
+    document.getElementById('subHeader').innerHTML = "";
+}
+
+function _deleteUser_DELETE(form){
+    if (form.pesel.value != "") {
+    var data = {};
+    data.pesel = form.pesel.value;
+   
+    document.getElementById('result').innerHTML = ''; 
+    document.getElementById('dataForm').innerHTML = '';  
+    request = getRequestObject() ;
+
+    request.onreadystatechange = function() {
+    if (request.readyState == 4 && request.status == 204 )    {
+        alert("Success")
+    } else {
+        alert(request.response)
+    }
+    }
+
+    request.open("DELETE", serverPath + "/user/"+ data.pesel , true);
+    request.send(null);
+}
 }

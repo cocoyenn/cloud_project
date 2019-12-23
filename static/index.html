@@ -27,7 +27,7 @@
         function draw() {
             var config = {
                 container_id: "viz",
-                server_url: "https://localhost:7474",
+                //server_url: "https://localhost:7474",
                 server_user: "caro",
                 server_password: "b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl",
                 labels: {
@@ -61,10 +61,10 @@
           <li id="addUser" onclick = "_addUser();" style="display: block">Add user</li>
           <li id="addBook" onclick = "_addBook();" style="display: block">Add book</li>
           <li id="lendBook" onclick = "_connectUserAndBook();" style="display: block">Lend book</li>
-          <li id="lendBook" onclick = "_giveBackBook();" style="display: block">Give back book</li>
+          <li id="giveBackBook" onclick = "_giveBackBook();" style="display: block">Give back book</li>
           <li id="displayUserAccount" onclick = "__userHistory();" style="display: block">User profile</li>
-          <li id="displayBook" onclick = "_bookHistory();" style="display: block">Book profile</li> 
-          <li id="displayBook" onclick = "_displayGraph();" style="display: block">Display graph</li> 
+          <li id="displayBookAccount" onclick = "_bookHistory();" style="display: block">Book profile</li> 
+          <li id="deleteUser" onclick = "_deleteUser();" style="display: block">Delete user</li> 
         </ul>
       </nav>
     </header>
