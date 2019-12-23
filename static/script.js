@@ -1,4 +1,4 @@
-var serverPath = "https://hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"// "http://localhost:8080";
+var serverPath = "https://hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data"// "http://localhost:8080";
 
 function getRequestObject() {
     if ( window.ActiveXObject) {
