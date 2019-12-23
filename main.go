@@ -57,7 +57,8 @@ func main(){
 	var err error = nil
 
 	//var databasePath string = "http://neo4j:caro@localhost:7474"
-	var databasePath string = "https://User1:b.ltlTUqioCmH1.zpLdQk4fhizAfsAv@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
+	var databasePath string = "https://caro:b.HIBN6GItb7fD.fn3PKjJSXseIjyzl@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
+	//var databasePath string = "https://User1:b.ltlTUqioCmH1.zpLdQk4fhizAfsAv@hobby-oghlklmkakojgbkepalfbfdl.dbs.graphenedb.com:24780/db/data/"
 	
 	log.Print("Begining of initialization of server...\n")
 
