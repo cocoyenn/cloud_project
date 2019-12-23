@@ -222,7 +222,9 @@ function _lendBook_POST(form) {
 
         request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 201 ) {
-                alert("Success.")
+                document.getElementById('subHeader').innerHTML = "Succesfully lended a book: " + data.uniquecode + "to user: " + data.pesel ;
+            } else {
+                document.getElementById('subHeader').innerHTML = "Failed.";
             }
         }
 
@@ -257,9 +259,9 @@ function _giveBackBook_POST(form) {
 
         request.onreadystatechange = function() {
         if (request.readyState == 4 && request.status == 201 )    {
-            objJSON = JSON.parse(request.response);
-            alert("Success.")
-            document.getElementById('result').innerHTML = "Succesfully returned a book: " + data.uniquecode + "by user: " + data.pesel ;//request.response;
+            document.getElementById('subHeader').innerHTML = "Succesfully returned a book: " + data.uniquecode + "by user: " + data.pesel ;
+            } else {
+                document.getElementById('subHeader').innerHTML = "Failed.";
             }
         }
 

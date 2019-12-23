@@ -154,6 +154,33 @@ func Lend(w http.ResponseWriter, r *http.Request) {
 		return;
 	}
 	json.Unmarshal(reqBody, &lendHelper)
+
+	cq_check := neoism.CypherQuery{
+		Statement: "MATCH (user:User{pesel: {pesel}}) RETURN user",
+
+		Parameters: neoism.Props{"pesel": lendHelper.Pesel },
+		Result:     &res0,
+	}
+
+	err = Db.Cypher(&cq_check)
+	if(len(res0) == 0) {
+		RespondWithJSON(w, http.StatusNotFound, nil)
+		return;
+	}
+
+	cq_check = neoism.CypherQuery{
+		Statement: "MATCH (book:Book {uniquecode: {uniquecode}}) RETURN book",
+
+		Parameters: neoism.Props{"uniquecode": lendHelper.UniqueCode },
+		Result:     &res0,
+	}
+
+	err = Db.Cypher(&cq_check)
+	
+	if(len(res0) == 0) {
+		RespondWithJSON(w, http.StatusNotFound, nil)
+		return;
+	}
 	
 	cq := neoism.CypherQuery{
 		Statement: "MATCH (user:User {pesel: {pesel}}) MATCH (book:Book {uniquecode: {uniquecode}}) CREATE (user)-[r:BORROWED]->(book) RETURN type(r)",
@@ -161,11 +188,6 @@ func Lend(w http.ResponseWriter, r *http.Request) {
 		Result:     &res0,
 	}
 	
-	log.Println(len(res0))
-	if(len(res0) == 0){
-		RespondWithJSON(w, http.StatusForbidden, nil)
-	}
-
 	err = Db.Cypher(&cq)
 	PanicErr(w, err)
 	
@@ -181,6 +203,33 @@ func Archivise(w http.ResponseWriter, r *http.Request) {
 		return;
 	}
 	json.Unmarshal(reqBody, &lendHelper)
+
+	cq_check := neoism.CypherQuery{
+		Statement: "MATCH (user:User{pesel: {pesel}}) RETURN user",
+
+		Parameters: neoism.Props{"pesel": lendHelper.Pesel },
+		Result:     &res0,
+	}
+
+	err = Db.Cypher(&cq_check)
+	if(len(res0) == 0) {
+		RespondWithJSON(w, http.StatusNotFound, nil)
+		return;
+	}
+
+	cq_check = neoism.CypherQuery{
+		Statement: "MATCH (book:Book {uniquecode: {uniquecode}}) RETURN book",
+
+		Parameters: neoism.Props{"uniquecode": lendHelper.UniqueCode },
+		Result:     &res0,
+	}
+	
+	err = Db.Cypher(&cq_check)
+	
+	if(len(res0) == 0) {
+		RespondWithJSON(w, http.StatusNotFound, nil)
+		return;
+	}
 	
 	cq := neoism.CypherQuery{
 		Statement: "MATCH (user:User {pesel: {pesel}}) MATCH (book:Book {uniquecode: {uniquecode}}) CREATE (user)-[rel:RETURNED]->(book) RETURN user",
