@@ -25,7 +25,7 @@ func InitRouter() *mux.Router{
 
 	router.HandleFunc("/book", AddBook).Methods("POST")
 	router.HandleFunc("/book/{uniquecode}", GetBook).Methods("GET")
-	router.HandleFunc("/books", GetBook).Methods("GET")
+	router.HandleFunc("/books", GetBooks).Methods("GET")
 
 	router.HandleFunc("/lend", Lend).Methods("POST")
 	router.HandleFunc("/giveBack", Archivise).Methods("POST")
