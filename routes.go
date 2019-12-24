@@ -145,6 +145,17 @@ func GetBook(w http.ResponseWriter, r *http.Request) {
 	RespondWithJSON(w, http.StatusOK, books)
 }
 
+func GetBooks(w http.ResponseWriter, r *http.Request) {
+	var books  []Book	
+	cq_check := neoism.CypherQuery{
+		Statement: "MATCH (book:Book) RETURN book",
+		Result:     &books,
+	}
+	err := Db.Cypher(&cq_check)
+	PanicErr(w, err)
+	RespondWithJSON(w, http.StatusOK, books)
+}
+
 func Lend(w http.ResponseWriter, r *http.Request) {
 	var lendHelper LendHelper
 	res0 := []struct { N neoism.Node }{}
