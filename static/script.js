@@ -130,9 +130,7 @@ function _userHistory() {
     document.getElementById('subHeader').innerHTML = "";
 }
 
-function _getUser_else {
-    document.getElementById('subHeader').innerHTML = "Account for user " + data.Pesel + " doesn't exist.";
-}GET(form) {
+function _getUser() {
     
     if (form.pesel.value != "") {
     var data = {};
