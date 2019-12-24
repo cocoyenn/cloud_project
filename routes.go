@@ -148,7 +148,7 @@ func GetBook(w http.ResponseWriter, r *http.Request) {
 func GetBooks(w http.ResponseWriter, r *http.Request) {
 	var books  []Book	
 	cq_check := neoism.CypherQuery{
-		Statement: "MATCH (book:Book) RETURN  book.title AS Title, book.type AS Type, book.uniquecode As UniqueCode,",
+		Statement: "MATCH (book:Book) RETURN  book.title AS Title, book.type AS Type, book.uniquecode As UniqueCode",
 		Result:     &books,
 	}
 	err := Db.Cypher(&cq_check)
