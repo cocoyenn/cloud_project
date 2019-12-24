@@ -294,9 +294,7 @@ function _deleteUser_DELETE(form) {
         request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 204 ) {
                 alert("Success!")
-            } else {
-                alert(request.response)
-            }
+            } 
         }
 
         request.open("DELETE", serverPath + "/user/"+ data.pesel , true);
