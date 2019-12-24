@@ -163,6 +163,7 @@ function _getBooks(form) {
     document.getElementById('result').innerHTML = ''; 
     document.getElementById('dataForm').innerHTML = '';  
     request = getRequestObject() ;
+    
     request.onreadystatechange = function() {
     if (request.readyState == 4 && request.status == 200 ) {
         objJSON = JSON.parse(request.response);
@@ -178,7 +179,7 @@ function _getBooks(form) {
     request.open("GET", serverPath + "/books", true) ;
     request.send(null);
 }
-}
+
 
 function _bookHistory() {
     document.getElementById('result').innerHTML = ''; 
