@@ -42,6 +42,8 @@ function _addUser_POST(form) {
             request.onreadystatechange = function() {
             if (request.readyState == 4 && request.status == 201 ) {
                 document.getElementById('subHeader').innerHTML = "Successfuly added user: " + data.pesel;
+                }else {
+                    document.getElementById('subHeader').innerHTML = "Account for user " + data.Pesel + " already exist.";
                 }
             }
 
@@ -92,6 +94,8 @@ function _addBook_POST(form) {
             request.onreadystatechange = function() {
                 if (request.readyState == 4 && request.status == 201 )    {
                     document.getElementById('subHeader').innerHTML = "Successfuly added book: " + data.uniquecode;
+                } else {
+                    document.getElementById('subHeader').innerHTML = "Account for book " + data.Pesel + " already exist.";
                 }
             }
 
@@ -126,7 +130,9 @@ function _userHistory() {
     document.getElementById('subHeader').innerHTML = "";
 }
 
-function _getUser_GET(form) {
+function _getUser_else {
+    document.getElementById('subHeader').innerHTML = "Account for user " + data.Pesel + " doesn't exist.";
+}GET(form) {
     
     if (form.pesel.value != "") {
     var data = {};
