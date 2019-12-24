@@ -130,7 +130,7 @@ function _userHistory() {
     document.getElementById('subHeader').innerHTML = "";
 }
 
-function _getUser() {
+function _getUser_GET() {
     
     if (form.pesel.value != "") {
     var data = {};
