@@ -167,7 +167,7 @@ function _getBooks(form) {
     request.onreadystatechange = function() {
     if (request.readyState == 4 && request.status == 200 ) {
         objJSON = JSON.parse(request.response);
-        var txt = "<table><tr><td>Title</td><td>Type</td><td>UniqueCode</td><td>Status</td></tr>";;
+        var txt = "<table><tr><td>Title</td><td>Type</td><td>UniqueCode</td></tr>";;
             for ( var id in objJSON ) {
                 txt += "<tr><td>"+objJSON[id]["Title"]+"</td>" + "<td>"+objJSON[id]["Type"]+"</td>";
                 txt += "<td>"+objJSON[id]["UniqueCode"]+"</td></td>";
