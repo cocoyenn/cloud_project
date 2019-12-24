@@ -163,14 +163,14 @@ function _getBooks(form) {
     document.getElementById('result').innerHTML = ''; 
     document.getElementById('dataForm').innerHTML = '';  
     request = getRequestObject() ;
-    
+
     request.onreadystatechange = function() {
     if (request.readyState == 4 && request.status == 200 ) {
         objJSON = JSON.parse(request.response);
         var txt = "<table><tr><td>Title</td><td>Type</td><td>UniqueCode</td><td>Status</td></tr>";;
             for ( var id in objJSON ) {
                 txt += "<tr><td>"+objJSON[id]["Title"]+"</td>" + "<td>"+objJSON[id]["Type"]+"</td>";
-                txt += "<td>"+objJSON[id]["UniqueCode"]+"</td>" + "<td>"+objJSON[id]["State"]+"</td>";
+                txt += "<td>"+objJSON[id]["UniqueCode"]+"</td></td>";
                 txt +="</tr>";
             }
             document.getElementById('result').innerHTML = txt + "</table>";
